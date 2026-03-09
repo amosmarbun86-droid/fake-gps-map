@@ -48,5 +48,15 @@ margin:5px;
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 <script src="script.js"></script>
 
+<script>
+
+if ("serviceWorker" in navigator) {
+
+navigator.serviceWorker.register("service-worker.js")
+
+}
+
+</script>
+
 </body>
 </html>
