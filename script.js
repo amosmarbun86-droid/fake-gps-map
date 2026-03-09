@@ -5,19 +5,52 @@ maxZoom:19
 }).addTo(map);
 
 var marker;
+var currentLat;
+var currentLng;
 
 map.on('click', function(e){
 
-var lat = e.latlng.lat;
-var lng = e.latlng.lng;
+currentLat = e.latlng.lat;
+currentLng = e.latlng.lng;
 
-document.getElementById("lat").innerHTML = lat;
-document.getElementById("lng").innerHTML = lng;
+document.getElementById("lat").innerHTML = currentLat;
+document.getElementById("lng").innerHTML = currentLng;
 
 if(marker){
 map.removeLayer(marker);
 }
 
-marker = L.marker([lat,lng]).addTo(map);
+marker = L.marker([currentLat,currentLng]).addTo(map);
 
 });
+
+function setFake(){
+
+alert("Fake GPS diset ke : "+currentLat+","+currentLng);
+
+}
+
+function searchLocation(){
+
+var city = document.getElementById("search").value;
+
+fetch("https://nominatim.openstreetmap.org/search?format=json&q="+city)
+
+.then(response => response.json())
+
+.then(data =>{
+
+var lat = data[0].lat;
+var lon = data[0].lon;
+
+map.setView([lat,lon],13);
+
+if(marker){
+map.removeLayer(marker);
+}
+
+marker = L.marker([lat,lon]).addTo(map);
+
+});
+
+}
