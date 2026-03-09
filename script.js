@@ -1,14 +1,15 @@
-// ===== Inisialisasi Peta =====
+// ===== Peta =====
 var map = L.map('map').setView([0,0],2);
 var marker;
 var currentLat;
 var currentLng;
+var walkInterval; // untuk simulasi jalan
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   maxZoom:19
 }).addTo(map);
 
-// ===== Auto load lokasi HP saat buka website =====
+// ===== Auto lokasi HP =====
 function getLocation(){
   if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(function(pos){
@@ -28,14 +29,14 @@ function addOrUpdateMarker(lat,lng){
   document.getElementById("lng").innerHTML = lng.toFixed(6);
 }
 
-// ===== Klik peta tetap opsional =====
+// ===== Klik peta opsional =====
 map.on('click', function(e){
   currentLat = e.latlng.lat;
   currentLng = e.latlng.lng;
   addOrUpdateMarker(currentLat,currentLng);
 });
 
-// ===== Joystick untuk gerak marker =====
+// ===== Joystick =====
 var joystick = nipplejs.create({
   zone: document.getElementById('joystick'),
   mode:'static',
@@ -45,19 +46,28 @@ var joystick = nipplejs.create({
 
 joystick.on('move', function(evt,data){
   if(data.vector){
-    currentLat += data.vector.y*0.0001; // atas/bawah
-    currentLng += data.vector.x*0.0001; // kiri/kanan
+    currentLat += data.vector.y*0.0001;
+    currentLng += data.vector.x*0.0001;
     addOrUpdateMarker(currentLat,currentLng);
   }
 });
 
-// ===== Simulasi jalan otomatis =====
+// ===== Simulasi jalan =====
 function walk(){
   var step = 0.0001;
-  setInterval(function(){
+  if(walkInterval) clearInterval(walkInterval);
+  walkInterval = setInterval(function(){
     currentLat += step;
     addOrUpdateMarker(currentLat,currentLng);
   },2000);
+}
+
+// ===== Stop simulasi jalan =====
+function stopWalk(){
+  if(walkInterval){
+    clearInterval(walkInterval);
+    walkInterval = null;
+  }
 }
 
 // ===== Simpan lokasi favorit =====
@@ -67,7 +77,7 @@ function saveLocation(){
   alert("Lokasi disimpan!");
 }
 
-// ===== Pencarian kota =====
+// ===== Cari kota =====
 function searchLocation(){
   var city = document.getElementById("search").value;
   fetch("https://nominatim.openstreetmap.org/search?format=json&q="+city)
