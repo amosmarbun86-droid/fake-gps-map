@@ -7,9 +7,22 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
 
 <style>
+
+body{
+font-family:Arial;
+text-align:center;
+}
+
 #map{
 height:500px;
+margin-top:10px;
 }
+
+button{
+padding:10px;
+margin:10px;
+}
+
 </style>
 
 </head>
@@ -18,10 +31,16 @@ height:500px;
 
 <h2>Fake GPS Map</h2>
 
+<input type="text" id="search" placeholder="Cari kota">
+
+<button onclick="searchLocation()">Cari</button>
+
 <div id="map"></div>
 
 <p>Latitude : <span id="lat"></span></p>
 <p>Longitude : <span id="lng"></span></p>
+
+<button onclick="setFake()">Set Fake GPS</button>
 
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 <script src="script.js"></script>
