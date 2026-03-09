@@ -1,15 +1,9 @@
 {
-"name": "Fake GPS Map",
-"short_name": "FakeGPS",
-"start_url": "/fake-gps-map/",
-"display": "standalone",
-"background_color": "#ffffff",
-"theme_color": "#2c3e50",
-"icons": [
-{
-"src": "icon.png",
-"sizes": "192x192",
-"type": "image/png"
-}
-]
+"name":"Fake GPS Map Final",
+"short_name":"FakeGPS",
+"start_url":"/fake-gps-map/",
+"display":"standalone",
+"background_color":"#ffffff",
+"theme_color":"#2c3e50",
+"icons":[{"src":"icon.png","sizes":"192x192","type":"image/png"}]
 }
