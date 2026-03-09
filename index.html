@@ -49,18 +49,16 @@ margin:5px;
 
 <button onclick="walk()">🚶 Simulasi Jalan</button>
 
+<div id="joystick" style="position:fixed; bottom:30px; left:30px; width:120px; height:120px;"></div>
+
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-<script src="script.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.9.0/nipplejs.min.js"></script>
+<script src="script.js"></script>
 
 <script>
-
 if ("serviceWorker" in navigator) {
-
-navigator.serviceWorker.register("service-worker.js")
-
+    navigator.serviceWorker.register("service-worker.js")
 }
-
 </script>
 
 </body>
