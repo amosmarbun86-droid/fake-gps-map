@@ -24,9 +24,31 @@ marker = L.marker([currentLat,currentLng]).addTo(map);
 
 });
 
-function setFake(){
+function getLocation(){
 
-alert("Fake GPS diset ke : "+currentLat+","+currentLng);
+navigator.geolocation.getCurrentPosition(function(pos){
+
+var lat = pos.coords.latitude;
+var lng = pos.coords.longitude;
+
+map.setView([lat,lng],15);
+
+if(marker){
+map.removeLayer(marker);
+}
+
+marker = L.marker([lat,lng]).addTo(map);
+
+});
+
+}
+
+function saveLocation(){
+
+localStorage.setItem("favLat",currentLat);
+localStorage.setItem("favLng",currentLng);
+
+alert("Lokasi disimpan");
 
 }
 
@@ -52,5 +74,22 @@ map.removeLayer(marker);
 marker = L.marker([lat,lon]).addTo(map);
 
 });
+
+}
+
+function walk(){
+
+var lat = currentLat;
+var lng = currentLng;
+
+setInterval(function(){
+
+lat = lat + 0.0001;
+
+marker.setLatLng([lat,lng]);
+
+map.panTo([lat,lng]);
+
+},2000);
 
 }
